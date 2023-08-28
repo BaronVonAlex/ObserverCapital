@@ -9,9 +9,6 @@ from binance.client import Client
 from binance.exceptions import BinanceAPIException
 from binance_updater import update_binance_data
 
-import time
-import threading
-
 app = Flask(__name__)
 app.secret_key = 'qkwdjhd20auwdya28daiufh'
 
@@ -19,33 +16,6 @@ api_key = None
 api_secret = None
 
 client = None  # We'll initialize the client once API keys are entered
-
-# Data storage
-my_balances = []
-open_orders = []
-
-def update_binance_data(client, my_balances, open_orders):
-    while True:
-        if client:
-            try:
-                # Update account balance
-                account = client.futures_account()
-                my_balances.clear()
-                my_balances.extend(account['assets'])
-
-                # Update open orders
-                open_orders.clear()
-                open_orders.extend(client.futures_get_open_orders(symbol=''))
-
-            except BinanceAPIException as e:
-                print(f"Error updating data: {e}")
-        
-        time.sleep(1)  # 1-second interval
-
-# Initialize update thread
-update_thread = threading.Thread(target=update_binance_data, args=(client, my_balances, open_orders))
-update_thread.daemon = True  # Make sure the thread will exit when the main program exits
-update_thread.start()
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
