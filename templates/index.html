@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APIPRAC</title>
+</head>
+<body>    
+    <h1>{{ title }}</h1>
+    <div id="chart"></div>
+    <div id="trades"></div>
+
+    <!-- TradingView Widget BEGIN -->
+    <div id="tradingview-chart">
+
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script src="/static/chartcontroller.js"></script>
+    </div>
+    
+  
+
+    <!-- Add Buy/Sell buttons -->
+    <!--<button onclick="window.location.href = '/buy';">Buy BTCUSDT</button>
+    <button onclick="window.location.href = '/sell';">Sell BTCUSDT</button> -->
+
+    <!-- Add section for open orders -->
+    <h2>Open Orders</h2>
+    <div id="open_orders">
+        <ul>
+            {% for order in open_orders %}
+                <li>{{ order.orderId }}: {{ order.side }} {{ order.origQty }} {{ order.symbol }} at {{ order.price }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div style="border: solid gray 1px; padding: 10px; width: 700px;">
+        <form id="tradeForm" method="post">
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                <div style="padding: 10px; width: 500px; background: pink; border: solid red 1px; color: red; margin-bottom: 10px;">
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                </div>
+                {% endfor %}
+            {% endwith %}
+
+            <input type="text" id="quantity" name="quantity" placeholder="0.001">
+
+            <select id="symbol" name="symbol" onchange="updateChart(this.value);">
+                {% for symbol in symbols %}
+                    <option>{{ symbol['symbol'] }}</option>
+                {% endfor %}
+            </select>
+
+            <select id="leverage" name="leverage">
+                <option value="1">1x</option>
+                <option value="2">2x</option>
+                <option value="5">5x</option>
+                <option value="8">8x</option>
+                <option value="10">10x</option>
+                <option value="15">15x</option>
+                <option value="20">20x</option>
+                <option value="50">50x</option>
+                <option value="100">100x</option>
+                <option value="125">125x</option>
+            </select>
+
+            <input type="text" id="price" name="price" placeholder="Market Price">
+
+            <input type="button" id="buyButton" value="buy"/>
+            <input type="button" id="sellButton" value="sell"/>
+
+        </form>
+    </div>
+    <script src="/static/orderController.js"></script>    
+
+    <!-- Balances Section -->
+    <h2>My Balances</h2>
+    <div id="my_balances">
+        <table>
+            {% for balance in my_balances %}
+            <tr>
+                <td>
+                    {{ balance['asset'] }}
+                </td>
+                <td>
+                    {{ balance['walletBalance'] }}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>  
+    
+    <form action="{{ url_for('logout') }}" method="post">
+        <input type="submit" value="Logout">
+    </form>
+       
+    <script>
+        // var binanceSocket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@trade",)
+
+        var tradeDiv = document.getElementById('trades')
+
+        /*
+        binanceSocket.onmessage = function(event){
+            console.log(event.data);
+
+            var messageObject = JSON.parse(event.data)
+            tradeDiv.append(messageObject.p)
+        }
+        */
+    </script>
+    <script src="{{ url_for('static', filename="chart.js") }}"></script>
+</body>
+</html>
