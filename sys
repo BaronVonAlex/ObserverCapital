@@ -1,0 +1,28 @@
+Test Design Techniques:
+Transition Coverage: Focuses on testing transitions between different states or conditions in a system.
+Boundary Value Analysis: Tests the boundaries of input ranges to ensure proper functionality at the edges.
+Decision Table: Organizes combinations of inputs and their corresponding outputs to ensure all scenarios are covered.
+Decision (Branch) Coverage: Tests each decision point or branch in the code to ensure all possible paths are exercised.
+Statement Coverage: Aims to execute each statement in the code at least once during testing.
+Independent Path: Analyzes all possible paths through the code to ensure comprehensive testing.
+Checklists, Bug Reports, and Test Cases:
+Checklists: Lists of items to verify or actions to take during testing to ensure nothing is overlooked.
+Bug Reports: Documents that detail identified issues in the software, including steps to reproduce, severity, and priority.
+Test Cases: Specific scenarios or conditions that are designed to validate the functionality of the software.
+Testing Levels:
+Unit Testing: Tests individual components or modules of the software.
+Integration Testing: Tests the interaction between integrated components or modules.
+System Testing: Tests the entire system as a whole.
+Acceptance Testing: Validates whether the system meets the specified requirements.
+Types of Testing:
+Black Box Testing: Tests the functionality of the software without knowledge of its internal structure.
+White Box Testing: Tests the internal workings of the software, including code paths and data structures.
+Maintenance Testing: Testing performed after changes are made to the software to ensure that the modifications haven't adversely affected existing functionality.
+Retesting and Regression Testing: Re-executing tests to verify that previously identified defects have been fixed and that no new defects have been introduced.
+Static Testing: Reviews and inspections conducted without executing the code.
+Dynamic Testing: Involves executing the code to observe its behavior.
+Manual Testing: Testing performed manually by human testers.
+Automation Testing: Testing that is performed using automated tools or scripts.
+Functional and Non-functional Testing:
+Functional Testing: Verifies that the software meets the specified functional requirements.
+Non-functional Testing: Evaluates aspects of the software other than functionality, such as performance, reliability, and usability.
